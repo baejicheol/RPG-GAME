@@ -7,13 +7,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 int main() {
 	int player_hp = 100;
 	int player_attack = 10;
 	int player_defence = 8;
 
-	int monster_hp = 800;
+	int monster_hp = 100;
 	int monster_attack = 10;
 	int monster_defence = 8;
 
@@ -37,7 +36,7 @@ int main() {
 		printf("3. Run.\n");
 
 		int choice;
-		scanf("%d", &choice);
+		scanf("%d", &choice); //프로젝트 속성에 들어가서 _CRT_SECURE_NO_WARNINGS 붙여넣기 하기!
 
 		if (choice == 1) {
 			int damage = player_attack - monster_defence;
@@ -47,6 +46,14 @@ int main() {
 
 			printf("Hit the monster with damage %d.\n", damage);
 			monster_hp -= damage;
+
+			int cntatt = rand() % 2;
+			if (monster_hp > 0 && cntatt) {
+				printf("Watch out! Monster's counterattack! \n");
+				damage = monster_attack - player_defence;
+				player_hp -= damage;
+				printf("Got damage %d from the monster.\n", damage);
+			}
 		}
 		else if (choice == 2) {
 			int damage = monster_attack - player_attack;
@@ -56,6 +63,14 @@ int main() {
 
 			printf("Got damage %d from the monster.\n", damage);
 			player_hp -= damage;
+
+			int cntatt = rand() % 2;
+			if (player_hp > 0 && cntatt) {
+				printf("Let's counterattack.\n");
+				damage = player_attack - monster_defence;
+				monster_hp -= damage;
+				printf("Hit the monster with damage %d.\n", damage);
+			}
 		}
 		else if (choice == 3) {
 			printf("Bye bye!\n");
@@ -76,5 +91,5 @@ int main() {
 		}
 
 	}
-
 	return 0;
+}
